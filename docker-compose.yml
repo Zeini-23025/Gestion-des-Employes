@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  server:
+    build:
+      context: ./server
+    ports:
+      - "8080:8080"
+    container_name: spring-server
+
+  client:
+    build:
+      context: ./client
+    ports:
+      - "3000:80"
+    container_name: react-client

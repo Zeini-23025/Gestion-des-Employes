@@ -1,13 +1,13 @@
-package com.zeiny.gestion_des_employes;
+package com.zeiny.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GestionDesEmployesApplication {
+public class ServerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GestionDesEmployesApplication.class, args);
+		SpringApplication.run(ServerApplication.class, args);
 	}
 
 }

@@ -1,10 +1,10 @@
-package com.zeiny.gestion_des_employes;
+package com.zeiny.server;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class GestionDesEmployesApplicationTests {
+class ServerApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -58,5 +58,5 @@ docker run --name employe-frontend --network employe-net -p 3000:80 -d zeini/rea
 
 ## 💬 Remerciements
 
-### Good bye oni-sama 😘  
+### Good bye onii-sama 😘  
 Merci de contribuer, et amuse-toi bien avec le projet !

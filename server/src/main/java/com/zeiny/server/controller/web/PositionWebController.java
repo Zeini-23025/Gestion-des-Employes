@@ -29,7 +29,7 @@ public class PositionWebController {
     @PostMapping("/save")
     public String savePosition(@ModelAttribute Position position) {
         positionService.savePosition(position);
-        return "redirect:/web/positions";
+        return "redirect:/web/positions"; 
     }
 
     @GetMapping("/edit/{id}")

@@ -7,10 +7,32 @@ services:
     ports:
       - "8080:8080"
     container_name: spring-server
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/employe_db
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_DATASOURCE_DRIVER-CLASS-NAME=com.mysql.cj.jdbc.Driver
+    depends_on:
+      - mysql-db
 
-  client:
-    build:
-      context: ./client
+  mysql-db:
+    image: mysql:5.7
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: employe_db
     ports:
-      - "3000:80"
-    container_name: react-client
+      - "5003:3306"  # Port mapping: Host 5003 -> Container 3306
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  # client:
+  #   build:
+  #     context: ./client
+  #   ports:
+  #     - "3000:80"
+  #   container_name: react-client
+
+volumes:
+  mysql-data:
+    driver: local

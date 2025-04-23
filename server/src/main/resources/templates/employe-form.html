@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulaire Employé</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container mt-4">
+    <h1 th:text="${employe.id} == null ? 'Ajouter un Employé' : 'Modifier l\'Employé'}" class="mb-4"></h1>
+
+    <form th:action="@{/employes/save}" th:object="${employe}" method="post" class="row g-3">
+        <input type="hidden" th:field="*{id}" />
+
+        <div class="col-md-6">
+            <label for="nom" class="form-label">Nom</label>
+            <input type="text" th:field="*{nom}" class="form-control" id="nom" required />
+        </div>
+
+        <div class="col-md-6">
+            <label for="salaire" class="form-label">Salaire</label>
+            <input type="number" step="0.01" th:field="*{salaire}" class="form-control" id="salaire" required />
+        </div>
+
+        <div class="col-md-6">
+            <label for="department" class="form-label">Département</label>
+            <select th:field="*{department}" class="form-select" id="department" required>
+                <option th:each="d : ${departments}" th:value="${d}" th:text="${d.nom}"></option>
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <label for="position" class="form-label">Poste</label>
+            <select th:field="*{position}" class="form-select" id="position" required>
+                <option th:each="p : ${positions}" th:value="${p}" th:text="${p.nom}"></option>
+            </select>
+        </div>
+
+        <div class="col-12">
+            <button type="submit" class="btn btn-success">Enregistrer</button>
+            <a th:href="@{/employes}" class="btn btn-secondary">Annuler</a>
+        </div>
+    </form>
+</body>
+</html>

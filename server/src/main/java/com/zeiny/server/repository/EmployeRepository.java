@@ -11,4 +11,6 @@ import com.zeiny.server.model.Employe;
 public interface EmployeRepository extends JpaRepository<Employe, Long> {
     List<Employe> findByDepartmentId(Long departmentId);
     List<Employe> findBySalaireGreaterThanEqual(Double salaire);
+
+    public List<Employe> findByDepartmentIdAndSalaireGreaterThanEqual(Long departmentId, Double minSalaire);
 }

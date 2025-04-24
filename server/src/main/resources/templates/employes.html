@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des Employés</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="container mt-4">
+
     <h1 class="mb-4">Liste des Employés</h1>
 
     <!-- Ajouter un employé -->
@@ -29,6 +32,9 @@
             <tr>
                 <th>Nom</th>
                 <th>Salaire</th>
+                <th>Salaire + Taxe</th>
+                <th>Salaire + Bonus</th>
+                <th>Salaire Final</th>
                 <th>Département</th>
                 <th>Poste</th>
                 <th>Actions</th>
@@ -36,18 +42,20 @@
         </thead>
         <tbody>
             <tr th:each="e : ${employes}">
-                <td th:text="${e.nom}"></td>
-                <td th:text="${e.salaire}"></td>
-                <td th:text="${e.department.name}"></td>
-                <td th:text="${e.position.name}"></td>
+                <td th:text="${e.nom}"></td> <!-- Nom de l'employé -->
+                <td th:text="${e.salaire}"></td> <!-- Salaire de base -->
+                <td th:text="${@employeService.calculateTotalWithTax(e)}"></td> <!-- Salaire + Taxe -->
+                <td th:text="${@employeService.calculateTotalWithBonus(e)}"></td> <!-- Salaire + Bonus -->
+                <td th:text="${@employeService.calculateFinalSalary(e)}"></td> <!-- Salaire Final -->
+                <td th:text="${e.department.name}"></td> <!-- Département -->
+                <td th:text="${e.position.name}"></td> <!-- Poste -->
                 <td>
-                    <!-- Modifier -->
-                    <a th:href="@{/web/employes/edit/{id}(id=${e.id})}" class="btn btn-sm btn-warning">Modifier</a>
-                    <!-- Supprimer -->
-                    <a th:href="@{/web/employes/delete/{id}(id=${e.id})}" class="btn btn-sm btn-danger" onclick="return confirm('Supprimer ?')">Supprimer</a>
+                    <a th:href="@{/web/employes/edit/{id}(id=${e.id})}" class="btn btn-warning btn-sm">Modifier</a>
+                    <a th:href="@{/web/employes/delete/{id}(id=${e.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Supprimer cet employé ?')">Supprimer</a>
                 </td>
             </tr>
         </tbody>
     </table>
+
 </body>
 </html>

@@ -32,7 +32,8 @@ public class EmployeWebController {
 
     @GetMapping
     public String list(Model model) {
-        model.addAttribute("employes", employeService.getAll());
+        List<Employe> employes = employeService.getAll();
+        model.addAttribute("employes", employes);
         return "employes";
     }
 
@@ -55,13 +56,13 @@ public class EmployeWebController {
     @PostMapping("/save")
     public String save(@ModelAttribute Employe employe) {
         employeService.save(employe);
-        return "redirect:/web/employes"; // 🔧 Corrigé ici
+        return "redirect:/web/employes"; // Redirige après la sauvegarde
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         employeService.delete(id);
-        return "redirect:/web/employes"; // 🔧 Corrigé ici
+        return "redirect:/web/employes"; // Redirige après la suppression
     }
 
     @GetMapping("/search")

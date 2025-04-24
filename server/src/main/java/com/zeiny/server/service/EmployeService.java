@@ -10,6 +10,7 @@ import com.zeiny.server.repository.EmployeRepository;
 
 @Service
 public class EmployeService {
+
     @Autowired
     private EmployeRepository employeRepository;
 
@@ -36,4 +37,27 @@ public class EmployeService {
     public List<Employe> findBySalaireMin(Double salaireMin) {
         return employeRepository.findBySalaireGreaterThanEqual(salaireMin);
     }
+
+    public double calculateTax(Employe employe) {
+        return employe.getSalaire() * 0.10;  // Taxe est une déduction, donc ce montant sera soustrait
+    }
+
+    public double calculateBonus(Employe employe) {
+        return employe.getSalaire() * 0.15;
+    }
+
+    public double calculateTotalWithTax(Employe employe) {
+        return employe.getSalaire() - calculateTax(employe);  // La taxe est soustraite du salaire
+    }
+
+    public double calculateTotalWithBonus(Employe employe) {
+        return employe.getSalaire() + calculateBonus(employe);  // Bonus est ajouté au salaire
+    }
+
+    public double calculateFinalSalary(Employe employe) {
+        return employe.getSalaire() - calculateTax(employe) + calculateBonus(employe);  // Taxe soustraite et bonus ajouté
+    }
 }
+
+//
+// bro ! this is good ??

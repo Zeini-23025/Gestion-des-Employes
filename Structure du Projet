@@ -1,5 +1,5 @@
 # Structure du Projet
-
+# Projet de gestion des employés avec Spring Boot et Thymeleaf
 .
 ├── .github/
 │   └── workflows/

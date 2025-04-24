@@ -1,4 +1,5 @@
 # Structure du Projet
+# Projet de gestion des employés avec Spring Boot et Thymeleaf
 
 .
 ├── .github/
@@ -39,5 +40,5 @@
 │       ├── application.properties  # Configuration Spring Boot
 │       ├── static/                 # Fichiers statiques (JS, CSS)
 │       └── templates/              # Templates Thymeleaf (HTML)
-|
-|
+├── .gitignore                    # Fichier pour ignorer les fichiers non nécessaires dans Git
+└── pom.xml                      # Fichier de configuration Maven pour les dépendances et plugins

@@ -1,0 +1,43 @@
+# Structure du Projet
+
+.
+├── .github/
+│   └── workflows/
+│       └── docker.yml          # Workflow GitHub Actions pour le déploiement Docker
+├── docker-compose.yml          # Fichier Docker Compose pour configurer les services (Spring Boot, MySQL, etc.)
+├── README.md                   # Documentation du projet
+├── server/                     # Dossier contenant l'application Spring Boot
+│   ├── src/
+│   │   └── main/
+│   │       ├── java/
+│   │       │   └── com/
+│   │       │       └── zeiny/
+│   │       │           └── server/
+│   │       │               ├── controller/    # Contrôleurs Web et API
+│   │       │               │   ├── web/        # Contrôleurs pour les vues Thymeleaf
+│   │       │               │   │   ├── DepartmentWebController.java
+│   │       │               │   │   ├── EmployeWebController.java
+│   │       │               │   │   └── PositionWebController.java
+│   │       │               │   ├── api/        # Contrôleurs pour les APIs REST
+│   │       │               │   │   ├── DepartmentApiController.java
+│   │       │               │   │   ├── EmployeApiController.java
+│   │       │               │   │   └── PositionApiController.java
+│   │       │               ├── model/         # Entités JPA (Department, Employe, etc.)
+│   │       │               │   ├── Department.java
+│   │       │               │   ├── Employe.java
+│   │       │               │   └── Position.java
+│   │       │               ├── repository/    # Repositories JPA
+│   │       │               │   ├── DepartmentRepository.java
+│   │       │               │   ├── EmployeRepository.java
+│   │       │               │   └── PositionRepository.java
+│   │       │               ├── service/       # Services (Logique métier)
+│   │       │               │   ├── DepartmentService.java
+│   │       │               │   ├── EmployeService.java
+│   │       │               │   └── PositionService.java
+│   │       │               └── ServerApplication.java  # Classe principale Spring Boot
+│   └── resources/
+│       ├── application.properties  # Configuration Spring Boot
+│       ├── static/                 # Fichiers statiques (JS, CSS)
+│       └── templates/              # Templates Thymeleaf (HTML)
+|
+|

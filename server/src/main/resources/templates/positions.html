@@ -7,9 +7,11 @@
 <body class="container mt-4">
     <h1 class="mb-4">Liste des Postes</h1>
 
-    <a th:href="@{/positions/new}" class="btn btn-primary mb-3">Ajouter un Poste</a>
+    <!-- Ajouter un nouveau poste -->
+    <a th:href="@{/web/positions/new}" class="btn btn-primary mb-3">Ajouter un Poste</a>
 
-    <table class="table table-bordered">
+    <!-- Tableau des postes -->
+    <table class="table table-bordered table-striped">
         <thead>
             <tr>
                 <th>Nom</th>
@@ -17,11 +19,13 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="p : ${positions}">
-                <td th:text="${p.nom}"></td>
+            <tr th:each="position : ${positions}">
+                <td th:text="${position.name}"></td>
                 <td>
-                    <a th:href="@{/positions/edit/{id}(id=${p.id})}" class="btn btn-sm btn-warning">Modifier</a>
-                    <a th:href="@{/positions/delete/{id}(id=${p.id})}" class="btn btn-sm btn-danger" onclick="return confirm('Supprimer ?')">Supprimer</a>
+                    <!-- Modifier -->
+                    <a th:href="@{/web/positions/edit/{id}(id=${position.id})}" class="btn btn-sm btn-warning">Modifier</a>
+                    <!-- Supprimer -->
+                    <a th:href="@{/web/positions/delete/{id}(id=${position.id})}" class="btn btn-sm btn-danger" onclick="return confirm('Supprimer ?')">Supprimer</a>
                 </td>
             </tr>
         </tbody>

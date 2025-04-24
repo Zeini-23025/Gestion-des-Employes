@@ -7,9 +7,11 @@
 <body class="container mt-4">
     <h1 class="mb-4">Liste des Employés</h1>
 
-    <a th:href="@{/employes/new}" class="btn btn-primary mb-3">Ajouter un Employé</a>
+    <!-- Ajouter un employé -->
+    <a th:href="@{/web/employes/new}" class="btn btn-primary mb-3">Ajouter un Employé</a>
 
-    <form th:action="@{/employes/search}" method="get" class="row g-3 mb-4">
+    <!-- Formulaire de recherche -->
+    <form th:action="@{/web/employes/search}" method="get" class="row g-3 mb-4">
         <div class="col-md-4">
             <input type="number" name="departmentId" class="form-control" placeholder="ID Département">
         </div>
@@ -21,6 +23,7 @@
         </div>
     </form>
 
+    <!-- Tableau des employés -->
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
@@ -35,11 +38,13 @@
             <tr th:each="e : ${employes}">
                 <td th:text="${e.nom}"></td>
                 <td th:text="${e.salaire}"></td>
-                <td th:text="${e.department.nom}"></td>
-                <td th:text="${e.position.nom}"></td>
+                <td th:text="${e.department.name}"></td>
+                <td th:text="${e.position.name}"></td>
                 <td>
-                    <a th:href="@{/employes/edit/{id}(id=${e.id})}" class="btn btn-sm btn-warning">Modifier</a>
-                    <a th:href="@{/employes/delete/{id}(id=${e.id})}" class="btn btn-sm btn-danger" onclick="return confirm('Supprimer ?')">Supprimer</a>
+                    <!-- Modifier -->
+                    <a th:href="@{/web/employes/edit/{id}(id=${e.id})}" class="btn btn-sm btn-warning">Modifier</a>
+                    <!-- Supprimer -->
+                    <a th:href="@{/web/employes/delete/{id}(id=${e.id})}" class="btn btn-sm btn-danger" onclick="return confirm('Supprimer ?')">Supprimer</a>
                 </td>
             </tr>
         </tbody>

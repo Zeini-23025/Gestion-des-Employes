@@ -1,13 +1,3 @@
-/*
- * ｡･ﾟﾟ*(>д<)*ﾟﾟ･｡
- * onii-chaaaan~! Tasukete!
- * This code is broken... again...
- * The JVM is angry, and I'm just a simple kouhai trying to survive 😭
- * 
- * – Signed, a desperate dev.
- */
-
-
 package com.zeiny.server.controller.web;
 
 import java.util.List;

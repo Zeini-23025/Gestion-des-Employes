@@ -7,9 +7,9 @@
 <body class="container mt-4">
     <h1 class="mb-4">Liste des Départements</h1>
 
-    <a th:href="@{/departments/new}" class="btn btn-primary mb-3">Ajouter un Département</a>
+    <a th:href="@{/web/departments/new}" class="btn btn-primary mb-3">Ajouter un Département</a>
 
-    <table class="table table-bordered">
+    <table class="table table-bordered table-striped">
         <thead>
             <tr>
                 <th>Nom</th>
@@ -18,10 +18,10 @@
         </thead>
         <tbody>
             <tr th:each="d : ${departments}">
-                <td th:text="${d.nom}"></td>
+                <td th:text="${d.name}"></td>
                 <td>
-                    <a th:href="@{/departments/edit/{id}(id=${d.id})}" class="btn btn-sm btn-warning">Modifier</a>
-                    <a th:href="@{/departments/delete/{id}(id=${d.id})}" class="btn btn-sm btn-danger" onclick="return confirm('Supprimer ?')">Supprimer</a>
+                    <a th:href="@{/web/departments/edit/{id}(id=${d.id})}" class="btn btn-sm btn-warning">Modifier</a>
+                    <a th:href="@{/web/departments/delete/{id}(id=${d.id})}" class="btn btn-sm btn-danger" onclick="return confirm('Supprimer ?')">Supprimer</a>
                 </td>
             </tr>
         </tbody>

@@ -7,15 +7,16 @@
 <body class="container mt-4">
     <h1 th:text="${position.id == null} ? 'Ajouter un Poste' : 'Modifier le Poste'" class="mb-4"></h1>
 
-    <form th:action="@{/positions/save}" th:object="${position}" method="post" class="row g-3">
+    <!-- Formulaire pour créer ou modifier un poste -->
+    <form th:action="@{/web/positions/save}" th:object="${position}" method="post" class="row g-3">
         <input type="hidden" th:field="*{id}" />
         <div class="col-md-6">
-            <label for="nom" class="form-label">Nom</label>
-            <input type="text" th:field="*{nom}" class="form-control" id="nom" required />
+            <label for="name" class="form-label">Nom</label>
+            <input type="text" th:field="*{name}" class="form-control" id="name" required />
         </div>
         <div class="col-12">
             <button type="submit" class="btn btn-success">Enregistrer</button>
-            <a th:href="@{/positions}" class="btn btn-secondary">Annuler</a>
+            <a th:href="@{/web/positions}" class="btn btn-secondary">Annuler</a>
         </div>
     </form>
 </body>

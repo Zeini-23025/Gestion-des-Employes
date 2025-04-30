@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Employés - API Documentation</title>
+    <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.10.3/swagger-ui.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .swagger-ui .topbar {
+            background-color: #3F51B5;
+        }
+        .swagger-ui .info .title {
+            color: #3F51B5;
+        }
+    </style>
+</head>
+<body>
+    <div id="swagger-ui"></div>
+
+    <script src="https://unpkg.com/swagger-ui-dist@5.10.3/swagger-ui-bundle.js"></script>
+    <script src="https://unpkg.com/swagger-ui-dist@5.10.3/swagger-ui-standalone-preset.js"></script>
+    <script>
+        window.onload = function() {
+            // Utiliser l'URL absolue pour le fichier YAML
+            const yamlPath = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1) + 'openapi.yaml';
+            
+            const ui = SwaggerUIBundle({
+                url: yamlPath,
+                dom_id: '#swagger-ui',
+                deepLinking: true,
+                presets: [
+                    SwaggerUIBundle.presets.apis,
+                    SwaggerUIStandalonePreset
+                ],
+                layout: "StandaloneLayout",
+                validatorUrl: null,
+                docExpansion: "list",
+                defaultModelsExpandDepth: -1, // Cache les modèles par défaut
+                tryItOutEnabled: false       // Désactive le bouton "Try it out" pour éviter les erreurs
+            });
+            window.ui = ui;
+        };
+    </script>
+</body>
+</html>

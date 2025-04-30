@@ -1,0 +1,487 @@
+openapi: 3.0.3
+info:
+  title: API de Gestion des Employés
+  description: |
+    API permettant de gérer les employés, leurs départements et leurs positions dans l'entreprise.
+    Cette API fait partie d'une application complète développée avec Spring Boot et Thymeleaf.
+  version: 1.0.0
+  contact:
+    name: Zeiny
+    url: https://github.com/Zeini-23025/Gestion-des-Employes
+
+servers:
+  - url: http://localhost:8080
+    description: Serveur de développement local
+  - url: https://gestion-employes.example.com
+    description: Serveur de production
+
+tags:
+  - name: Employés
+    description: Opérations sur les employés
+  - name: Départements
+    description: Opérations sur les départements
+  - name: Positions
+    description: Opérations sur les positions (postes de travail)
+
+paths:
+  /api/employes:
+    get:
+      tags:
+        - Employés
+      summary: Liste tous les employés
+      description: Récupère la liste complète des employés avec leurs informations
+      operationId: getAllEmployes
+      responses:
+        '200':
+          description: Liste des employés récupérée avec succès
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employe'
+    post:
+      tags:
+        - Employés
+      summary: Crée un nouvel employé
+      description: Ajoute un nouvel employé dans la base de données
+      operationId: createEmploye
+      requestBody:
+        description: Objet employé à créer
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employe'
+        required: true
+      responses:
+        '201':
+          description: Employé créé avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employe'
+        '400':
+          description: Données invalides fournies
+
+  /api/employes/{id}:
+    get:
+      tags:
+        - Employés
+      summary: Obtient un employé par ID
+      description: Récupère les détails d'un employé spécifique par son identifiant
+      operationId: getEmployeById
+      parameters:
+        - name: id
+          in: path
+          description: ID de l'employé à récupérer
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Employé trouvé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employe'
+        '404':
+          description: Employé non trouvé
+    put:
+      tags:
+        - Employés
+      summary: Met à jour un employé
+      description: Met à jour les informations d'un employé existant
+      operationId: updateEmploye
+      parameters:
+        - name: id
+          in: path
+          description: ID de l'employé à mettre à jour
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Nouvelles informations pour l'employé
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employe'
+        required: true
+      responses:
+        '200':
+          description: Employé mis à jour avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employe'
+        '400':
+          description: Données invalides fournies
+        '404':
+          description: Employé non trouvé
+    delete:
+      tags:
+        - Employés
+      summary: Supprime un employé
+      description: Supprime un employé de la base de données
+      operationId: deleteEmploye
+      parameters:
+        - name: id
+          in: path
+          description: ID de l'employé à supprimer
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Employé supprimé avec succès
+        '404':
+          description: Employé non trouvé
+
+  /api/employes/by-department/{deptId}:
+    get:
+      tags:
+        - Employés
+      summary: Liste les employés par département
+      description: Récupère la liste des employés appartenant à un département spécifique
+      operationId: getEmployesByDepartment
+      parameters:
+        - name: deptId
+          in: path
+          description: ID du département
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Liste des employés du département récupérée avec succès
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employe'
+
+  /api/employes/by-salaire/{min}:
+    get:
+      tags:
+        - Employés
+      summary: Liste les employés par salaire minimum
+      description: Récupère la liste des employés ayant un salaire supérieur ou égal au minimum spécifié
+      operationId: getEmployesBySalaireMin
+      parameters:
+        - name: min
+          in: path
+          description: Salaire minimum
+          required: true
+          schema:
+            type: number
+            format: double
+      responses:
+        '200':
+          description: Liste des employés avec salaire filtré récupérée avec succès
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employe'
+
+  /api/departments:
+    get:
+      tags:
+        - Départements
+      summary: Liste tous les départements
+      description: Récupère la liste complète des départements
+      operationId: getAllDepartments
+      responses:
+        '200':
+          description: Liste des départements récupérée avec succès
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Department'
+    post:
+      tags:
+        - Départements
+      summary: Crée un nouveau département
+      description: Ajoute un nouveau département dans la base de données
+      operationId: createDepartment
+      requestBody:
+        description: Objet département à créer
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Department'
+        required: true
+      responses:
+        '201':
+          description: Département créé avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Department'
+        '400':
+          description: Données invalides fournies
+
+  /api/departments/{id}:
+    get:
+      tags:
+        - Départements
+      summary: Obtient un département par ID
+      description: Récupère les détails d'un département spécifique par son identifiant
+      operationId: getDepartmentById
+      parameters:
+        - name: id
+          in: path
+          description: ID du département à récupérer
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Département trouvé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Department'
+        '404':
+          description: Département non trouvé
+    put:
+      tags:
+        - Départements
+      summary: Met à jour un département
+      description: Met à jour les informations d'un département existant
+      operationId: updateDepartment
+      parameters:
+        - name: id
+          in: path
+          description: ID du département à mettre à jour
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Nouvelles informations pour le département
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Department'
+        required: true
+      responses:
+        '200':
+          description: Département mis à jour avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Department'
+        '400':
+          description: Données invalides fournies
+        '404':
+          description: Département non trouvé
+    delete:
+      tags:
+        - Départements
+      summary: Supprime un département
+      description: Supprime un département de la base de données
+      operationId: deleteDepartment
+      parameters:
+        - name: id
+          in: path
+          description: ID du département à supprimer
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Département supprimé avec succès
+        '404':
+          description: Département non trouvé
+
+  /api/positions:
+    get:
+      tags:
+        - Positions
+      summary: Liste toutes les positions
+      description: Récupère la liste complète des positions (postes de travail)
+      operationId: getAllPositions
+      responses:
+        '200':
+          description: Liste des positions récupérée avec succès
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Position'
+    post:
+      tags:
+        - Positions
+      summary: Crée une nouvelle position
+      description: Ajoute une nouvelle position dans la base de données
+      operationId: createPosition
+      requestBody:
+        description: Objet position à créer
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Position'
+        required: true
+      responses:
+        '201':
+          description: Position créée avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Position'
+        '400':
+          description: Données invalides fournies
+
+  /api/positions/{id}:
+    get:
+      tags:
+        - Positions
+      summary: Obtient une position par ID
+      description: Récupère les détails d'une position spécifique par son identifiant
+      operationId: getPositionById
+      parameters:
+        - name: id
+          in: path
+          description: ID de la position à récupérer
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Position trouvée
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Position'
+        '404':
+          description: Position non trouvée
+    put:
+      tags:
+        - Positions
+      summary: Met à jour une position
+      description: Met à jour les informations d'une position existante
+      operationId: updatePosition
+      parameters:
+        - name: id
+          in: path
+          description: ID de la position à mettre à jour
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Nouvelles informations pour la position
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Position'
+        required: true
+      responses:
+        '200':
+          description: Position mise à jour avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Position'
+        '400':
+          description: Données invalides fournies
+        '404':
+          description: Position non trouvée
+    delete:
+      tags:
+        - Positions
+      summary: Supprime une position
+      description: Supprime une position de la base de données
+      operationId: deletePosition
+      parameters:
+        - name: id
+          in: path
+          description: ID de la position à supprimer
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Position supprimée avec succès
+        '404':
+          description: Position non trouvée
+
+components:
+  schemas:
+    Employe:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Identifiant unique de l'employé
+          example: 1
+        nom:
+          type: string
+          description: Nom complet de l'employé
+          example: "Jean Dupont"
+        salaire:
+          type: number
+          format: double
+          description: Salaire de base de l'employé
+          example: 45000.00
+        department:
+          $ref: '#/components/schemas/Department'
+        position:
+          $ref: '#/components/schemas/Position'
+      required:
+        - nom
+        - salaire
+
+    Department:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Identifiant unique du département
+          example: 1
+        name:
+          type: string
+          description: Nom du département
+          example: "Ressources Humaines"
+      required:
+        - name
+
+    Position:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Identifiant unique de la position
+          example: 1
+        name:
+          type: string
+          description: Nom de la position (poste de travail)
+          example: "Développeur Senior"
+      required:
+        - name
+
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: Authentification basique pour accéder aux API (actuellement désactivée)
+
+# La sécurité est désactivée pour permettre la visualisation sans authentification
+# security:
+#  - basicAuth: []

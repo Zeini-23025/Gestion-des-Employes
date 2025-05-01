@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Système de Gestion des Employés - Dashboard Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar / Menu de navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2>Manager</h2>
+                <button id="close-sidebar-btn"><i class="fas fa-times"></i></button>
+            </div>
+            <ul class="nav-links">
+                <li class="active">
+                    <a href="#" data-section="dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Accueil</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-section="employees">
+                        <i class="fas fa-users"></i>
+                        <span>Employés</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-section="departments">
+                        <i class="fas fa-building"></i>
+                        <span>Départements</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-section="reports">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Rapports</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-section="settings">
+                        <i class="fas fa-cog"></i>
+                        <span>Paramètres</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Contenu Principal -->
+        <div class="main-content">
+            <!-- En-tête -->
+            <header class="header">
+                <div class="header-left">
+                    <button id="open-sidebar-btn" class="menu-btn"><i class="fas fa-bars"></i></button>
+                    <div class="search-bar">
+                        <input type="text" placeholder="Rechercher...">
+                        <button><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                
+                <div class="user-info">
+                    <span>Admin</span>
+                    <img src="/api/placeholder/40/40" alt="Admin">
+                </div>
+            </header>
+
+            <!-- Contenu -->
+            <div class="content">
+                <!-- Section Dashboard -->
+                <section id="dashboard" class="content-section active">
+                    <h1>Tableau de bord</h1>
+                    <div class="dashboard-cards">
+                        <div class="card">
+                            <div class="card-icon"><i class="fas fa-users"></i></div>
+                            <div class="card-info">
+                                <h3>Total Employés</h3>
+                                <p class="total-employees">0</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon"><i class="fas fa-building"></i></div>
+                            <div class="card-info">
+                                <h3>Départements</h3>
+                                <p class="total-departments">0</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon"><i class="fas fa-money-bill-wave"></i></div>
+                            <div class="card-info">
+                                <h3>Budget Salaires</h3>
+                                <p class="total-salaries">0 €</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="recent-section">
+                        <h2>Employés Récents</h2>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Département</th>
+                                    <th>Poste</th>
+                                    <th>Date d'embauche</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recent-employees">
+                                <!-- Les données seront insérées ici par JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Section Employés -->
+                <section id="employees" class="content-section">
+                    <h1>Gestion des Employés</h1>
+                    <div class="controls">
+                        <button id="add-employee-btn" class="btn primary"><i class="fas fa-plus"></i> Ajouter un Employé</button>
+                        <div class="filters">
+                            <select id="department-filter">
+                                <option value="">Tous les départements</option>
+                                <!-- Options ajoutées dynamiquement -->
+                            </select>
+                            <select id="salary-filter">
+                                <option value="">Tous les salaires</option>
+                                <option value="0-30000">0€ - 30 000€</option>
+                                <option value="30000-50000">30 000€ - 50 000€</option>
+                                <option value="50000-80000">50 000€ - 80 000€</option>
+                                <option value="80000+">80 000€ et plus</option>
+                            </select>
+                            <button id="apply-filters" class="btn">Appliquer les filtres</button>
+                        </div>
+                    </div>
+                    <div class="employees-list">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nom</th>
+                                    <th>Poste</th>
+                                    <th>Département</th>
+                                    <th>Salaire</th>
+                                    <th>Taxes</th>
+                                    <th>Primes</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="employees-data">
+                                <!-- Les données seront insérées ici par JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Modal pour ajouter/éditer un employé -->
+                    <div id="employee-modal" class="modal">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <h2 id="modal-title">Ajouter un Employé</h2>
+                            <form id="employee-form">
+                                <input type="hidden" id="employee-id">
+                                <div class="form-group">
+                                    <label for="employee-name">Nom complet</label>
+                                    <input type="text" id="employee-name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="employee-position">Poste</label>
+                                    <input type="text" id="employee-position" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="employee-salary">Salaire (€)</label>
+                                    <input type="number" id="employee-salary" required min="0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="employee-department">Département</label>
+                                    <select id="employee-department" required>
+                                        <!-- Options ajoutées dynamiquement -->
+                                    </select>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="button" class="btn secondary" id="cancel-employee-btn">Annuler</button>
+                                    <button type="submit" class="btn primary">Enregistrer</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section Départements -->
+                <section id="departments" class="content-section">
+                    <h1>Gestion des Départements</h1>
+                    <div class="controls">
+                        <button id="add-department-btn" class="btn primary"><i class="fas fa-plus"></i> Ajouter un Département</button>
+                    </div>
+                    <div class="departments-list">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nom du Département</th>
+                                    <th>Nombre d'Employés</th>
+                                    <th>Budget Total</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="departments-data">
+                                <!-- Les données seront insérées ici par JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Modal pour ajouter/éditer un département -->
+                    <div id="department-modal" class="modal">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <h2 id="department-modal-title">Ajouter un Département</h2>
+                            <form id="department-form">
+                                <input type="hidden" id="department-id">
+                                <div class="form-group">
+                                    <label for="department-name">Nom du département</label>
+                                    <input type="text" id="department-name" required>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="button" class="btn secondary" id="cancel-department-btn">Annuler</button>
+                                    <button type="submit" class="btn primary">Enregistrer</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section Rapports -->
+                <section id="reports" class="content-section">
+                    <h1>Rapports</h1>
+                    <div class="report-cards">
+                        <div class="report-card">
+                            <h3>Répartition des employés par département</h3>
+                            <div class="chart-container">
+                                <canvas id="departments-chart"></canvas>
+                            </div>
+                        </div>
+                        <div class="report-card">
+                            <h3>Distribution des salaires</h3>
+                            <div class="chart-container">
+                                <canvas id="salaries-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section Paramètres -->
+                <section id="settings" class="content-section">
+                    <h1>Paramètres</h1>
+                    <div class="settings-container">
+                        <div class="settings-card">
+                            <h3>Paramètres de calcul</h3>
+                            <form id="settings-form">
+                                <div class="form-group">
+                                    <label for="tax-rate">Taux d'imposition (%)</label>
+                                    <input type="number" id="tax-rate" min="0" max="100" value="20">
+                                </div>
+                                <div class="form-group">
+                                    <label for="bonus-threshold">Seuil pour primes (€)</label>
+                                    <input type="number" id="bonus-threshold" min="0" value="50000">
+                                </div>
+                                <div class="form-group">
+                                    <label for="bonus-percentage">Pourcentage de prime (%)</label>
+                                    <input type="number" id="bonus-percentage" min="0" max="100" value="5">
+                                </div>
+                                <button type="submit" class="btn primary">Enregistrer les paramètres</button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dialogue de confirmation pour la suppression -->
+    <div id="confirm-dialog" class="modal">
+        <div class="modal-content confirm-content">
+            <h2>Confirmation</h2>
+            <p id="confirm-message">Êtes-vous sûr de vouloir supprimer cet élément ?</p>
+            <div class="form-actions">
+                <button class="btn secondary" id="cancel-confirm">Annuler</button>
+                <button class="btn danger" id="confirm-action">Supprimer</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

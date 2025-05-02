@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postes</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        body {
+            display: flex;
+            background-color: #f8f9fa;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: white;
+            height: 100vh;
+            padding-top: 60px;
+            position: fixed;
+            transition: all 0.3s;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 12px 20px;
+            color: #333;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .sidebar a:hover, .sidebar a.active {
+            background-color: #6f42c1;
+            color: white;
+        }
+
+        /* Contenu principal */
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            width: 100%;
+            transition: margin-left 0.3s;
+            background-color: #f1f3f5;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar a {
+            color: #333;
+        }
+
+        .navbar a:hover {
+            color: #6f42c1;
+        }
+
+        .sidebar.collapsed {
+            margin-left: -250px;
+        }
+
+        .content.collapsed {
+            margin-left: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h2 class="mb-1">Manager</h2>
+             <hr class="mb-2">
+        </div>
+        <a href="/web/home" class="d-flex align-items-center">
+            <i class="fa-solid fa-house"></i>
+            <span class="m-2">Accueil</span>
+        </a>
+        <a href="/web/employes" class="d-flex align-items-center ">
+            <i   class="fa-solid fa-users"></i>
+            <span class="m-2">Employés</span>
+        </a>
+        <a href="/web/departments" class="d-flex align-items-center">
+            <i class="fa-solid fa-building"></i>
+            <span class="m-2">Départements</span>
+        </a>
+        <a href="/web/positions" class="d-flex align-items-center active">
+            <i class="fa-solid fa-address-card"></i>
+            <span class="m-2">Postes</span>
+        </a>
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="content" id="mainContent">
+
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <button class="btn btn-outline-secondary me-2" id="toggleSidebar">☰</button>
+                <a class="navbar-brand" href="#">Gestion RH</a>
+            </div>
+        </nav>
+
+        <!-- Liste des postes -->
+        <div class="container mt-5 pt-4">
+            <h1 class="mb-4">Liste des Postes</h1>
+
+            <!-- Ajouter un poste -->
+            <a th:href="@{/web/positions/new}" class="btn btn-primary mb-3">Ajouter un Poste</a>
+
+            <!-- Tableau des postes -->
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="p : ${positions}">
+                        <td th:text="${p.name}"></td>
+                        <td>
+                            <a th:href="@{/web/positions/edit/{id}(id=${p.id})}" class="btn btn-warning btn-sm">Modifier</a>
+                            <a th:href="@{/web/positions/delete/{id}(id=${p.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Supprimer ce poste ?')">Supprimer</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('toggleSidebar').addEventListener('click', function () {
+            document.getElementById('sidebar').classList.toggle('collapsed');
+            document.getElementById('mainContent').classList.toggle('collapsed');
+        });
+    </script>
+</body>
+</html>

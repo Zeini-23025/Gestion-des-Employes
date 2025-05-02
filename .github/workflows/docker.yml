@@ -28,9 +28,3 @@ jobs:
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/spring-server:latest
 
-    - name: Build and push React app (client)
-      uses: docker/build-push-action@v5
-      with:
-        context: ./client
-        push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/react-client:latest

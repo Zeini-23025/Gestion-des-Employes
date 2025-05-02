@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation - Gestion des Employés</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .swagger-ui .topbar {
+            background-color: #1a237e;
+            padding: 15px 0;
+        }
+        .swagger-ui .info {
+            margin: 20px 0;
+        }
+        .swagger-ui .info .title {
+            font-size: 36px;
+            color: #1a237e;
+        }
+        .swagger-ui .wrapper {
+            padding: 0 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .custom-header {
+            background-color: #1a237e;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .custom-header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .custom-header p {
+            margin: 10px 0 0;
+            font-size: 16px;
+        }
+        .custom-footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #616161;
+        }
+        .custom-footer a {
+            color: #1a237e;
+            text-decoration: none;
+        }
+        .custom-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="custom-header">
+        <h1>Documentation API - Gestion des Employés</h1>
+        <p>Cette documentation détaille toutes les API disponibles pour interagir avec le système de gestion des employés</p>
+    </div>
+
+    <div id="swagger-ui"></div>
+
+    <div class="custom-footer">
+        <p>Développé par Zeiny | <a href="https://github.com/Zeini-23025/Gestion-des-Employes" target="_blank">GitHub Repository</a></p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.js"></script>
+    <script>
+        window.onload = function() {
+            const ui = SwaggerUIBundle({
+                url: "/api-docs",
+                dom_id: "#swagger-ui",
+                deepLinking: true,
+                presets: [
+                    SwaggerUIBundle.presets.apis,
+                    SwaggerUIStandalonePreset
+                ],
+                plugins: [
+                    SwaggerUIBundle.plugins.DownloadUrl
+                ],
+                layout: "StandaloneLayout",
+                tagsSorter: "alpha",
+                operationsSorter: "method",
+                defaultModelsExpandDepth: 1,
+                defaultModelExpandDepth: 1,
+                docExpansion: "list",
+                showExtensions: true,
+                showCommonExtensions: true,
+                filter: true,
+                requestInterceptor: (request) => {
+                    return request;
+                },
+                responseInterceptor: (response) => {
+                    return response;
+                }
+            });
+            window.ui = ui;
+        };
+    </script>
+</body>
+</html>

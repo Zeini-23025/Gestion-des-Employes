@@ -1,11 +1,12 @@
 package com.zeiny.server.service;
 
-import com.zeiny.server.model.Department;
-import com.zeiny.server.repository.DepartmentRepository; 
+import java.util.List;
+ 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.zeiny.server.model.Department;
+import com.zeiny.server.repository.DepartmentRepository;
 
 @Service
 public class DepartmentService {

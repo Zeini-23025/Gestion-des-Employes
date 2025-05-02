@@ -4,10 +4,18 @@
 .
 ├── .github/
 │   └── workflows/
-│       └── docker.yml          # Workflow GitHub Actions pour le déploiement Docker
-├── docker-compose.yml          # Fichier Docker Compose pour configurer les services (Spring Boot, MySQL, etc.)
-├── README.md                   # Documentation du projet
-├── server/                     # Dossier contenant l'application Spring Boot
+│       └── docker.yml           # Workflow GitHub Actions pour le déploiement Docker
+├── docker-compose.yml           # Fichier Docker Compose pour configurer les services (Spring Boot, MySQL, etc.)
+├── README.md                    # Documentation du projet
+├── Documentation/                # Documentation du projet
+│   ├── api-readme.md             # Documentation des APIs
+│   ├── controleurs.md            # Documentation sur les contrôleurs
+│   ├── modeles.md                # Documentation des modèles
+│   ├── openapi.yaml              # Spécification OpenAPI
+│   ├── persistence.md            # Documentation sur la persistance des données
+│   ├── README.md                 # README spécifique à la documentation
+│   ├── swagger-standalone.html   # Swagger UI standalone
+├── server/                       # Dossier contenant l'application Spring Boot
 │   ├── src/
 │   │   └── main/
 │   │       ├── java/
@@ -16,9 +24,13 @@
 │   │       │           └── server/
 │   │       │               ├── controller/    # Contrôleurs Web et API
 │   │       │               │   ├── web/        # Contrôleurs pour les vues Thymeleaf
+│   │       │               │   │   ├── ApiDocsController.java
 │   │       │               │   │   ├── DepartmentWebController.java
 │   │       │               │   │   ├── EmployeWebController.java
-│   │       │               │   │   └── PositionWebController.java
+│   │       │               │   │   ├── HomeController.java
+│   │       │               │   │   ├── PositionWebController.java
+│   │       │               │   │   ├── CustomErrorController.java
+│   │       │               │   │   ├── SwaggerUIController.java
 │   │       │               │   ├── api/        # Contrôleurs pour les APIs REST
 │   │       │               │   │   ├── DepartmentApiController.java
 │   │       │               │   │   ├── EmployeApiController.java
@@ -35,10 +47,28 @@
 │   │       │               │   ├── DepartmentService.java
 │   │       │               │   ├── EmployeService.java
 │   │       │               │   └── PositionService.java
+│   │       │               ├── config/        # Configuration Spring Boot
+│   │       │               │   ├── SwaggerConfig.java
 │   │       │               └── ServerApplication.java  # Classe principale Spring Boot
 │   └── resources/
 │       ├── application.properties  # Configuration Spring Boot
 │       ├── static/                 # Fichiers statiques (JS, CSS)
+│       │   ├── api-guide.html      # Guide de l'API
+│       │   ├── index.html         # Page d'accueil
+│       │   ├── swagger-docs.json  # Documentation Swagger en JSON
+│       │   └── swagger-ui.html    # Interface Swagger UI
 │       └── templates/              # Templates Thymeleaf (HTML)
+<<<<<<< HEAD
 ├── .gitignore                    # Fichier pour ignorer les fichiers non nécessaires dans Git
 └── pom.xml                      # Fichier de configuration Maven pour les dépendances et plugins
+=======
+│           ├── 404.html           # Page d'erreur 404 personnalisée
+│           ├── department-form.html  # Formulaire de gestion des départements
+│           ├── departments.html      # Liste des départements
+│           ├── employe-form.html    # Formulaire de gestion des employés
+│           ├── employes.html        # Liste des employés
+│           ├── home.html           # Page d'accueil (Dashboard)
+│           ├── position-form.html   # Formulaire de gestion des postes
+│           └── positions.html       # Liste des postes
+└── pom.xml                      # Fichier de configuration Maven
+>>>>>>> zeiny

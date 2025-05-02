@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide d'utilisation de l'API - Gestion des Employés</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            padding-top: 20px;
+        }
+        .code-block {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        h1, h2, h3, h4 {
+            color: #1a237e;
+            margin-top: 30px;
+        }
+        .method {
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 4px;
+            color: white;
+            display: inline-block;
+            width: 70px;
+            text-align: center;
+            margin-right: 10px;
+        }
+        .get { background-color: #0d6efd; }
+        .post { background-color: #198754; }
+        .put { background-color: #fd7e14; }
+        .delete { background-color: #dc3545; }
+        .endpoint {
+            background-color: #f8f9fa;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+        }
+        .card {
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            background-color: #e8eaf6;
+            font-weight: bold;
+        }
+        .table th {
+            background-color: #e8eaf6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="text-center mb-5">
+            <h1>Guide d'utilisation de l'API</h1>
+            <h2 class="text-muted">Système de Gestion des Employés</h2>
+            <p class="lead">Ce guide explique comment utiliser les différents endpoints de l'API avec des exemples concrets.</p>
+            <div class="mt-4">
+                <a href="/swagger-ui.html" class="btn btn-primary me-2" target="_blank">Documentation Swagger UI</a>
+                <a href="/api-docs" class="btn btn-secondary me-2" target="_blank">OpenAPI JSON</a>
+                <a href="/swagger-docs.json" class="btn btn-info" target="_blank">Télécharger la documentation</a>
+            </div>
+        </header>
+
+        <section>
+            <h2>Introduction</h2>
+            <p>
+                L'API de Gestion des Employés vous permet d'interagir avec les données des employés, des départements et des positions (postes) via des requêtes HTTP.
+                Toutes les requêtes retournent des réponses au format JSON.
+            </p>
+            <p>
+                <strong>URL de base :</strong> <code>http://localhost:8080</code> (développement local)
+            </p>
+        </section>
+
+        <section>
+            <h2>Authentification</h2>
+            <p>
+                Actuellement, l'API est accessible sans authentification. Dans un environnement de production, il est recommandé
+                d'implémenter un système d'authentification (JWT, OAuth2, etc.).
+            </p>
+        </section>
+
+        <section>
+            <h2>Endpoints API</h2>
+
+            <h3 class="mt-4">Gestion des Employés</h3>
+            
+            <div class="card">
+                <div class="card-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/api/employes</span>
+                </div>
+                <div class="card-body">
+                    <h4>Récupérer tous les employés</h4>
+                    <p>Récupère la liste complète des employés avec leurs informations.</p>
+                    
+                    <h5>Exemple de requête :</h5>
+                    <div class="code-block">
+                        curl -X GET "http://localhost:8080/api/employes" -H "accept: application/json"
+                    </div>
+                    
+                    <h5>Exemple de réponse :</h5>
+                    <div class="code-block">
+                        [
+                          {
+                            "id": 1,
+                            "nom": "Jean Dupont",
+                            "salaire": 45000.0,
+                            "department": {
+                              "id": 1,
+                              "name": "Ressources Humaines"
+                            },
+                            "position": {
+                              "id": 1,
+                              "name": "Responsable RH"
+                            }
+                          },
+                          {
+                            "id": 2,
+                            "nom": "Marie Martin",
+                            "salaire": 52000.0,
+                            "department": {
+                              "id": 2,
+                              "name": "Développement"
+                            },
+                            "position": {
+                              "id": 3,
+                              "name": "Développeur Senior"
+                            }
+                          }
+                        ]
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/api/employes/{id}</span>
+                </div>
+                <div class="card-body">
+                    <h4>Récupérer un employé par ID</h4>
+                    <p>Récupère les détails d'un employé spécifique par son identifiant.</p>
+                    
+                    <h5>Paramètres de chemin :</h5>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>id</td>
+                                <td>Long</td>
+                                <td>Identifiant unique de l'employé</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h5>Exemple de requête :</h5>
+                    <div class="code-block">
+                        curl -X GET "http://localhost:8080/api/employes/1" -H "accept: application/json"
+                    </div>
+                    
+                    <h5>Exemple de réponse :</h5>
+                    <div class="code-block">
+                        {
+                          "id": 1,
+                          "nom": "Jean Dupont",
+                          "salaire": 45000.0,
+                          "department": {
+                            "id": 1,
+                            "name": "Ressources Humaines"
+                          },
+                          "position": {
+                            "id": 1,
+                            "name": "Responsable RH"
+                          }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="method post">POST</span>
+                    <span class="endpoint">/api/employes</span>
+                </div>
+                <div class="card-body">
+                    <h4>Créer un nouvel employé</h4>
+                    <p>Ajoute un nouvel employé dans la base de données.</p>
+                    
+                    <h5>Corps de la requête :</h5>
+                    <div class="code-block">
+                        {
+                          "nom": "Pierre Durand",
+                          "salaire": 38000.0,
+                          "department": {
+                            "id": 3
+                          },
+                          "position": {
+                            "id": 2
+                          }
+                        }
+                    </div>
+                    
+                    <h5>Exemple de requête :</h5>
+                    <div class="code-block">
+                        curl -X POST "http://localhost:8080/api/employes" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"nom\": \"Pierre Durand\", \"salaire\": 38000.0, \"department\": { \"id\": 3 }, \"position\": { \"id\": 2 } }"
+                    </div>
+                    
+                    <h5>Exemple de réponse :</h5>
+                    <div class="code-block">
+                        {
+                          "id": 3,
+                          "nom": "Pierre Durand",
+                          "salaire": 38000.0,
+                          "department": {
+                            "id": 3,
+                            "name": "Marketing"
+                          },
+                          "position": {
+                            "id": 2,
+                            "name": "Chargé de Projet"
+                          }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="method put">PUT</span>
+                    <span class="endpoint">/api/employes/{id}</span>
+                </div>
+                <div class="card-body">
+                    <h4>Mettre à jour un employé</h4>
+                    <p>Met à jour les informations d'un employé existant.</p>
+                    
+                    <h5>Paramètres de chemin :</h5>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>id</td>
+                                <td>Long</td>
+                                <td>Identifiant unique de l'employé à mettre à jour</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h5>Corps de la requête :</h5>
+                    <div class="code-block">
+                        {
+                          "nom": "Pierre Durand",
+                          "salaire": 42000.0,
+                          "department": {
+                            "id": 3
+                          },
+                          "position": {
+                            "id": 4
+                          }
+                        }
+                    </div>
+                    
+                    <h5>Exemple de requête :</h5>
+                    <div class="code-block">
+                        curl -X PUT "http://localhost:8080/api/employes/3" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"nom\": \"Pierre Durand\", \"salaire\": 42000.0, \"department\": { \"id\": 3 }, \"position\": { \"id\": 4 } }"
+                    </div>
+                    
+                    <h5>Exemple de réponse :</h5>
+                    <div class="code-block">
+                        {
+                          "id": 3,
+                          "nom": "Pierre Durand",
+                          "salaire": 42000.0,
+                          "department": {
+                            "id": 3,
+                            "name": "Marketing"
+                          },
+                          "position": {
+                            "id": 4,
+                            "name": "Manager"
+                          }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="method delete">DELETE</span>
+                    <span class="endpoint">/api/employes/{id}</span>
+                </div>
+                <div class="card-body">
+                    <h4>Supprimer un employé</h4>
+                    <p>Supprime un employé de la base de données.</p>
+                    
+                    <h5>Paramètres de chemin :</h5>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>id</td>
+                                <td>Long</td>
+                                <td>Identifiant unique de l'employé à supprimer</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h5>Exemple de requête :</h5>
+                    <div class="code-block">
+                        curl -X DELETE "http://localhost:8080/api/employes/3" -H "accept: application/json"
+                    </div>
+                    
+                    <h5>Réponse :</h5>
+                    <p>Statut HTTP 204 (No Content) sans corps de réponse en cas de succès.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/api/employes/by-department/{deptId}</span>
+                </div>
+                <div class="card-body">
+                    <h4>Récupérer les employés par département</h4>
+                    <p>Récupère la liste des employés appartenant à un département spécifique.</p>
+                    
+                    <h5>Paramètres de chemin :</h5>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>deptId</td>
+                                <td>Long</td>
+                                <td>Identifiant unique du département</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h5>Exemple de requête :</h5>
+                    <div class="code-block">
+                        curl -X GET "http://localhost:8080/api/employes/by-department/2" -H "accept: application/json"
+                    </div>
+                    
+                    <h5>Exemple de réponse :</h5>
+                    <div class="code-block">
+                        [
+                          {
+                            "id": 2,
+                            "nom": "Marie Martin",
+                            "salaire": 52000.0,
+                            "department": {
+                              "id": 2,
+                              "name": "Développement"
+                            },
+                            "position": {
+                              "id": 3,
+                              "name": "Développeur Senior"
+                            }
+                          },
+                          {
+                            "id": 4,
+                            "nom": "Thomas Petit",
+                            "salaire": 48000.0,
+                            "department": {
+                              "id": 2,
+                              "name": "Développement"
+                            },
+                            "position": {
+                              "id": 3,
+                              "name": "Développeur Senior"
+                            }
+                          }
+                        ]
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/api/employes/by-salaire/{min}</span>
+                </div>
+                <div class="card-body">
+                    <h4>Récupérer les employés par salaire minimum</h4>
+                    <p>Récupère la liste des employés ayant un salaire supérieur ou égal au minimum spécifié.</p>
+                    
+                    <h5>Paramètres de chemin :</h5>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>min</td>
+                                <td>Double</td>
+                                <td>Salaire minimum</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h5>Exemple de requête :</h5>
+                    <div class="code-block">
+                        curl -X GET "http://localhost:8080/api/employes/by-salaire/50000" -H "accept: application/json"
+                    </div>
+                    
+                    <h5>Exemple de réponse :</h5>
+                    <div class="code-block">
+                        [
+                          {
+                            "id": 2,
+                            "nom": "Marie Martin",
+                            "salaire": 52000.0,
+                            "department": {
+                              "id": 2,
+                              "name": "Développement"
+                            },
+                            "position": {
+                              "id": 3,
+                              "name": "Développeur Senior"
+                            }
+                          }
+                        ]
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="mt-5">Gestion des Départements</h3>
+            
+            <div class="card">
+                <div class="card-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/api/departments</span>
+                </div>
+                <div class="card-body">
+                    <h4>Récupérer tous les départements</h4>
+                    <p>Récupère la liste complète des départements.</p>
+                    
+                    <h5>Exemple de requête :</h5>
+                    <div class="code-block">
+                        curl -X GET "http://localhost:8080/api/departments" -H "accept: application/json"
+                    </div>
+                    
+                    <h5>Exemple de réponse :</h5>
+                    <div class="code-block">
+                        [
+                          {
+                            "id": 1,
+                            "name": "Ressources Humaines"
+                          },
+                          {
+                            "id": 2,
+                            "name": "Développement"
+                          },
+                          {
+                            "id": 3,
+                            "name": "Marketing"
+                          }
+                        ]
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="method post">POST</span>
+                    <span class="endpoint">/api/departments</span>
+                </div>
+                <div class="card-body">
+                    <h4>Créer un nouveau département</h4>
+                    <p>Ajoute un nouveau département dans la base de données.</p>
+                    
+                    <h5>Corps de la requête :</h5>
+                    <div class="code-block">
+                        {
+                          "name": "Finance"
+                        }
+                    </div>
+                    
+                    <h5>Exemple de requête :</h5>
+                    <div class="code-block">
+                        curl -X POST "http://localhost:8080/api/departments" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"name\": \"Finance\" }"
+                    </div>
+                    
+                    <h5>Exemple de réponse :</h5>
+                    <div class="code-block">
+                        {
+                          "id": 4,
+                          "name": "Finance"
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="mt-5">Gestion des Positions</h3>
+            
+            <div class="card">
+                <div class="card-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/api/positions</span>
+                </div>
+                <div class="card-body">
+                    <h4>Récupérer toutes les positions</h4>
+                    <p>Récupère la liste complète des positions (postes de travail).</p>
+                    
+                    <h5>Exemple de requête :</h5>
+                    <div class="code-block">
+                        curl -X GET "http://localhost:8080/api/positions" -H "accept: application/json"
+                    </div>
+                    
+                    <h5>Exemple de réponse :</h5>
+                    <div class="code-block">
+                        [
+                          {
+                            "id": 1,
+                            "name": "Responsable RH"
+                          },
+                          {
+                            "id": 2,
+                            "name": "Chargé de Projet"
+                          },
+                          {
+                            "id": 3,
+                            "name": "Développeur Senior"
+                          },
+                          {
+                            "id": 4,
+                            "name": "Manager"
+                          }
+                        ]
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="method post">POST</span>
+                    <span class="endpoint">/api/positions</span>
+                </div>
+                <div class="card-body">
+                    <h4>Créer une nouvelle position</h4>
+                    <p>Ajoute une nouvelle position dans la base de données.</p>
+                    
+                    <h5>Corps de la requête :</h5>
+                    <div class="code-block">
+                        {
+                          "name": "DevOps Engineer"
+                        }
+                    </div>
+                    
+                    <h5>Exemple de requête :</h5>
+                    <div class="code-block">
+                        curl -X POST "http://localhost:8080/api/positions" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"name\": \"DevOps Engineer\" }"
+                    </div>
+                    
+                    <h5>Exemple de réponse :</h5>
+                    <div class="code-block">
+                        {
+                          "id": 5,
+                          "name": "DevOps Engineer"
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mt-5">
+            <h2>Codes d'erreur</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Code HTTP</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>200 OK</td>
+                        <td>La requête a réussi</td>
+                    </tr>
+                    <tr>
+                        <td>201 Created</td>
+                        <td>Ressource créée avec succès</td>
+                    </tr>
+                    <tr>
+                        <td>204 No Content</td>
+                        <td>La requête a réussi mais n'a pas de contenu à retourner (souvent pour les suppressions)</td>
+                    </tr>
+                    <tr>
+                        <td>400 Bad Request</td>
+                        <td>La requête est invalide (données incorrectes)</td>
+                    </tr>
+                    <tr>
+                        <td>404 Not Found</td>
+                        <td>La ressource demandée n'existe pas</td>
+                    </tr>
+                    <tr>
+                        <td>500 Internal Server Error</td>
+                        <td>Erreur interne du serveur</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="mt-5">
+            <h2>Utilisation avec JavaScript</h2>
+            <p>Exemple d'utilisation de l'API avec JavaScript (Fetch API) :</p>
+            <div class="code-block">
+                // Récupérer tous les employés
+                fetch('http://localhost:8080/api/employes')
+                  .then(response => response.json())
+                  .then(data => console.log(data))
+                  .catch(error => console.error('Erreur:', error));
+
+                // Créer un nouvel employé
+                fetch('http://localhost:8080/api/employes', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    nom: "Sophie Leroy",
+                    salaire: 41000.0,
+                    department: {
+                      id: 1
+                    },
+                    position: {
+                      id: 2
+                    }
+                  }),
+                })
+                  .then(response => response.json())
+                  .then(data => console.log(data))
+                  .catch(error => console.error('Erreur:', error));
+            </div>
+        </section>
+        
+        <footer class="mt-5 mb-4 text-center text-muted">
+            <hr>
+            <p>Documentation API - Gestion des Employés &copy; 2025</p>
+            <p>Développé par Zeiny | <a href="https://github.com/Zeini-23025/Gestion-des-Employes" target="_blank">GitHub Repository</a></p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,4 +1,5 @@
 # Structure du Projet
+# Projet de gestion des employés avec Spring Boot et Thymeleaf
 
 .
 ├── .github/
@@ -57,6 +58,10 @@
 │       │   ├── swagger-docs.json  # Documentation Swagger en JSON
 │       │   └── swagger-ui.html    # Interface Swagger UI
 │       └── templates/              # Templates Thymeleaf (HTML)
+<<<<<<< HEAD
+├── .gitignore                    # Fichier pour ignorer les fichiers non nécessaires dans Git
+└── pom.xml                      # Fichier de configuration Maven pour les dépendances et plugins
+=======
 │           ├── 404.html           # Page d'erreur 404 personnalisée
 │           ├── department-form.html  # Formulaire de gestion des départements
 │           ├── departments.html      # Liste des départements
@@ -66,3 +71,4 @@
 │           ├── position-form.html   # Formulaire de gestion des postes
 │           └── positions.html       # Liste des postes
 └── pom.xml                      # Fichier de configuration Maven
+>>>>>>> zeiny

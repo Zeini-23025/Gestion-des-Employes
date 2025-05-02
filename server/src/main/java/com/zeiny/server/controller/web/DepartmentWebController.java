@@ -1,9 +1,3 @@
-// (╯°□°）╯︵ ┻━┻
-// onii-chan taskete~ 🥺💔
-// The code... it refuses to run...
-// Debugging this mess like:
-// "Nani?! It compiles but doesn't work..."
-
 package com.zeiny.server.controller.web;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -57,7 +57,8 @@ public class EmployeService {
     public double calculateFinalSalary(Employe employe) {
         return employe.getSalaire() - calculateTax(employe) + calculateBonus(employe);  // Taxe soustraite et bonus ajouté
     }
-}
 
-//
-// bro ! this is good ??
+    public List<Employe> getLast5Employees() {
+        return employeRepository.findTop5ByOrderByIdDesc();  // Méthode personnalisée dans le repository
+    }
+}
